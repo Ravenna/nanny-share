@@ -1,0 +1,35 @@
+<div class="modal fade" id="new-child" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add a Child</h4>
+      </div>
+
+      <%= form_for([@user, @user.children.new], :remote => true) do |f| %>
+
+      <div class="modal-body">
+		<div class="child-errors bg-danger"></div>
+		
+		
+			<div class="form-group">
+				<label for="address_one">Age</label>
+				<%= f.select :age,options_for_select((1..15).step(1).collect {|s| ["#{s}", s]}) ,:class => 'form-control' %>
+			</div>
+
+			<div class="form-group">
+				<label for="address_two">Gender</label>
+				<%= f.select :gender,["Male", "Female"], :class => 'form-control'  %>
+			</div>
+		  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	    <%= f.submit 'Save', :class => 'btn btn-primary', data: { disable_with: 'Saving...' } %>
+      </div>
+ 	 
+	<% end %>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

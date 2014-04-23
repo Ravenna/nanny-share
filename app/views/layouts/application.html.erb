@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NannyShare</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "http://seattlenanny.com/assets/css/header-1.css", media: "all" %>
+  <%= stylesheet_link_tag "http://seattlenanny.com/assets/css/socialicoregular.css", media: "all"%>
+  <%= stylesheet_link_tag "http://seattlenanny.com/assets/css/style.css", media: "all"%>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+
+	<script type="text/javascript"
+	   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs9tIxTqjEvTRv1yHLvLtiFoA6TXdPJxw&sensor=false&libraries=geometry">
+	 </script>
+	
+
+	<script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
+</head>
+<body>
+	<section class="container preheader"> 
+		
+		
+		<div class="phone"><a href="tel:4258039511" class="tele">425.803.9511</a> - <a href="tel:2064671999" class="tele">206.467.1999</a></div>
+		<ul class="social">
+			<li><a class="socicon small facebook" href="https://www.facebook.com/pages/Seattle-Nanny-Network-Inc/169143906432692" data-placement="bottom" target="_blank" data-original-title="Follow us on Facebook"></a></li>
+			<li><a class="socicon small twitterbird" href="https://twitter.com/SeattleNannyNet" data-placement="bottom" target="_blank" data-original-title="Follow us on Twitter"></a></li>
+			<li><a class="socicon small linkedin" href="http://www.linkedin.com/company/seattle-nanny-network-inc-?trk=top_nav_home" data-placement="bottom" target="_blank" data-original-title="Follow us on LinkedIn"></a></li>
+			
+		</ul>
+	</section>
+	
+	<header class="header  clearfix"> 
+		<div class="container"> 
+
+			<!-- begin #logo -->
+			<div id="logo"> <a href="index.php"><img src="http://seattlenanny.com/img/seattle-nanny-logo-new.png" alt="Seattle Nanny" class="img-responsive"></a> </div>
+			<!-- end #logo --> 
+			
+			
+				<nav id="main_menu">
+					<ul>
+						<% if user_signed_in? %>
+							<li><%= link_to 'Find a Family', find_a_family_path %></li>
+					  	<% end %>
+						<%= render 'users/shared/login_items' %>
+					  	<%= render 'users/shared/registration_items' %>
+					  
+					</ul>
+				</nav>
+			
+			
+			
+
+		</div><!-- /.container--> 
+	</header>	
+	
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+
+				<% if notice %>
+					<div class="alert alert-success"><p class="notice"><%= notice %></p></div>
+				<% end %>
+				<% if alert %>
+		        	<div class="alert alert-danger"><p class="alert"><%= alert %></p></div>
+				<% end %>				
+				
+				<%= yield %>
+			</div>
+			<%= render 'shared/sidebar'%>
+		</div>	
+	</div>
+
+
+<footer>
+	
+</footer>
+<% if user_signed_in? %>
+	<%= render "shared/new_child"%>
+<% end %>
+
+
+</body>
+</html>

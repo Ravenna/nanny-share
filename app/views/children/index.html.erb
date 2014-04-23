@@ -1,0 +1,19 @@
+<h1>Your Children</h1>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Age</th>
+      <th>Gender</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody id="child-list">
+	<% @children.each do |child| %>
+		<%= render partial: 'child_table_row', locals: {child: child}  %>
+	<% end %>
+  </tbody>
+</table>

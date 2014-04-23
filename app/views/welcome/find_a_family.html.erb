@@ -1,0 +1,116 @@
+<div class="row">
+<%= form_tag find_a_family_path, :method => :get do %>
+	<div class="col-sm-4 col-md-4 col-lg-4">
+  		<div class="form-group">
+			<label>Distance (miles):</label>
+		    <%= select_tag "distance", "<option>1</option><option>2</option><option>5</option><option>10</option><option>20</option>".html_safe, :class => "form-control"%>
+		  </div>
+	</div>
+  
+	<div class="col-sm-4 col-md-4 col-lg-4">
+  		<div class="form-group">
+			<label>Number of Children:</label>
+		    <%= select_tag "number_of_children", options_for_select((1..5).step(1).collect {|s| ["#{s}", s]}), :class => "form-control", :prompt => "Please select"%>
+		  </div>
+	</div>
+
+
+	<%= button_tag "Search", :class => 'btn'%>
+<% end %>
+
+</div><!-- /.row -->
+
+
+<div style='width: 600px;'>
+  <div id="map" style='width: 600px; height: 400px;'></div>
+</div>
+<p><small style="color:#cc0000;">RED icon is your location</small></p>
+
+
+
+<% if user_signed_in? && params[:distance].present? %>
+<p class="lead">Nearby</p>
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Email</th>
+			<th>Prefered Start Date</th>
+			<th>Number of Children</th>
+			<th>Distance from you</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% for location in @close %>
+		<tr>
+		<% unless location.user.email == current_user.email %>
+	  		<td><%= location.user.email %></td>
+			<td><%= location.user.start_date.strftime("%b %Y")%></td>
+			<td><%= location.user.children.count %></td>
+			<td><%= location.distance.round(2) %> miles</td>	
+		<% end %>
+		</tr>
+	<% end %>
+	</table>
+<% end %>
+
+
+
+<script>
+	$(document).ready(function(){
+		var circleIcon = {
+		    path: 'M 0, 0 m -10, 0 a 10, 10 0 1, 0 20, 0 a 10, 10 0 1, 0 -20, 0',
+		    fillColor: '#666666',
+		    fillOpacity: 0.6,
+		    scale: 2.5,
+		    strokeColor: '#666666',
+		    strokeWeight: 2,
+		    strokeOpacity: 0.8
+		};
+		
+		var userIcon = {
+		    path: 'M 0, 0 m -10, 0 a 10, 10 0 1, 0 20, 0 a 10, 10 0 1, 0 -20, 0',
+		    fillColor: '#cc0000',
+		    fillOpacity: 0.6,
+		    scale: 1,
+		    strokeColor: '#cc0000',
+		    strokeWeight: 2,
+		    strokeOpacity: 0.8
+		};
+		
+		var options = {
+	        zoom: 12,
+            center: new google.maps.LatLng(<%= current_user.location.latitude%>, <%= current_user.location.longitude%>),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: false,
+			scrollwheel: false
+        };
+        var map = new google.maps.Map(document.getElementById("map"), options);
+
+		var locations = <%= @hash.to_json.html_safe %>;
+		
+		// set multiple marker			
+		$.each(locations, function(i, item) {
+			var userEmail = '<%= current_user.email %>';
+			if(userEmail == item.infowindow){
+				var useIcon = userIcon;
+				var marker = new google.maps.Marker({
+	                 position: new google.maps.LatLng(item.lat, item.lng),
+	                 map: map,
+					icon: useIcon
+
+	             });
+	
+			} else {
+				var useIcon = circleIcon;
+				var marker = new google.maps.Marker({
+	                 position: new google.maps.LatLng(item.lat + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008), item.lng + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008)),
+	                 map: map,
+					icon: useIcon
+
+	             });
+			}
+		});	
+	});
+</script>

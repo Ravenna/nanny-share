@@ -1,0 +1,17 @@
+
+// HANDLE SIDEBAR COUNT
+var sidebarCount = $('.sidebar-child-count');
+if(sidebarCount){
+	sidebarCount.text(<%= current_user.children.count %>);
+}
+
+// HIDE AND CLEAR MODAL
+$('#new-child').modal('hide');
+$('#new_child').trigger('reset');
+ 
+
+// HANDLE TABLE ROW
+var table = $("#child-list");
+if(table){
+	table.append("<%= j render partial: 'child_table_row', locals: {child: @child } %>");
+}

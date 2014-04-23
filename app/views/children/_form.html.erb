@@ -1,0 +1,31 @@
+<%= form_for [@user, @child] do |f| %>
+  <% if @child.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@child.errors.count, "error") %> prohibited this child from being saved:</h2>
+
+      <ul>
+      <% @child.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+	<h2>Add a child</h2>
+
+	<div class="form-group">
+	    <label for="address_one">Age</label>
+	    <%= f.text_field :age, :class => 'form-control', :placeholder => "Age of child" %>
+	</div>
+	
+	<div class="form-group">
+	    <label for="address_two">Gender</label>
+	    <%= f.select :gender,["Male", "Female"], :class => 'form-control'  %>
+	</div>
+
+  
+  <div class="actions">
+    <%= f.submit 'Save', :class => 'btn'%>
+  </div>
+<% end %>
