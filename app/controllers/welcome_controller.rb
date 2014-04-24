@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
      
       if user_signed_in? && params[:distance].present?
         @close = Location.near([current_user.location.latitude, current_user.location.longitude], params[:distance])
-        @close = @close.joins(users: :children).where('user.children.count <= ?', params[:number_of_children]) if params[:number_of_children].present?
+        @close = @close.joins(user: :children).where('users.children_count <= ?', params[:number_of_children]) if params[:number_of_children].present?
         
         
         
