@@ -58,46 +58,6 @@
 
 <script>
 	$(document).ready(function(){
-		
-      
-		// SET MULTIPLE MARKERS			
-		$.each(locations, function(i, item) {
-			var userEmail = '<%= current_user.email %>';
-			
-			// CREATE SEPERATE MARKER FOR CURRENT USER
-			if(userEmail == item.infowindow){
-				var useIcon = userIcon;
-				var marker = new google.maps.Marker({
-	                 position: new google.maps.LatLng(item.lat, item.lng),
-	                 map: map,
-					icon: useIcon
-	             });
-
-			// NORMAL MARKERS 
-			} else {
-				var useIcon = circleIcon;
-				var marker = new google.maps.Marker({
-	                 position: new google.maps.LatLng(item.lat + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008), item.lng + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008)),
-	                 map: map,
-					icon: useIcon,
-					title: "TEST"
-	             });
-			}
-		});	
-		
-		
-		// VARS 
-		var map = new google.maps.Map(document.getElementById("map"), options);
-
-		var locations = <%= @hash.to_json.html_safe %>;
-		
-		var options = {
-	        zoom: 11,
-            center: new google.maps.LatLng(<%= current_user.location.latitude%>, <%= current_user.location.longitude%>),
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            zoomControl: false,
-			scrollwheel: false
-        };
 		var circleIcon = {
 		    path: 'M 0, 0 m -10, 0 a 10, 10 0 1, 0 20, 0 a 10, 10 0 1, 0 -20, 0',
 		    fillColor: '#666666',
@@ -118,7 +78,57 @@
 		    strokeOpacity: 0.8
 		};
 
+		var options = {
+	        zoom: 11,
+            center: new google.maps.LatLng(<%= current_user.location.latitude%>, <%= current_user.location.longitude%>),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: false,
+			scrollwheel: false
+        };
+        var map = new google.maps.Map(document.getElementById("map"), options);
+
+		var locations = <%= @hash.to_json.html_safe %>;
 		
+		var infoWindow = new google.maps.InfoWindow();
+
+		// Info Window Content
+		var infoWindowContent = [];
+		$.each(locations, function(i, item) {
+			infoWindowContent.push(item.infowindow);
+		});
+		
+		var userEmail = '<%= current_user.email %>';
+			
+			
+			
+		// CREATE MULITPLE MARKERS AND INFO WINDOWS 		
+		$.each(locations, function(i, item) {
+			// DIFF MARKER FOR CURRENT USER
+			if(userEmail == item.infowindow){
+				var useIcon = userIcon;
+				var marker = new google.maps.Marker({
+	                 position: new google.maps.LatLng(item.lat, item.lng),
+	                 map: map,
+					icon: useIcon
+	            });
+			// NORMAL MARKERS 
+			} else {
+				var useIcon = circleIcon;
+				var marker = new google.maps.Marker({
+	                 position: new google.maps.LatLng(item.lat + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008), item.lng + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008)),
+	                 map: map,
+					icon: useIcon,
+					title: item.infowindow
+	            });
+			}
+			
+			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			            return function() {
+			                infoWindow.setContent(infoWindowContent[i]);
+			                infoWindow.open(map, marker);
+			            }
+			        })(marker, i));	
+		}); // CLOSE LOCATIONS.EACH	
 	});
 </script>
 
