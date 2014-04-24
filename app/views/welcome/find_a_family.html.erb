@@ -15,19 +15,18 @@
 	</div>
 
 
-	<%= button_tag "Search", :class => 'btn'%>
+	<%= button_tag "Search", :class => 'btn search-button'%>
 <% end %>
 
 </div><!-- /.row -->
 
 
-<div style='width: 600px;'>
-  <div id="map" style='width: 600px; height: 400px;'></div>
+<div style='width: 100%; height: auto; min-height:400px;'>
+  <div id="map" style='width: 100%; height: auto;min-height:400px;'></div>
 </div>
 <p><small style="color:#cc0000;">RED icon is your location</small></p>
 
 
-<%= debug(@close)%>
 <hr>
 
 <% if user_signed_in? && params[:distance].present? %>
@@ -57,3 +56,70 @@
 	</table>
 <% end %>
 
+<script>
+	$(document).ready(function(){
+		
+      
+		// SET MULTIPLE MARKERS			
+		$.each(locations, function(i, item) {
+			var userEmail = '<%= current_user.email %>';
+			
+			// CREATE SEPERATE MARKER FOR CURRENT USER
+			if(userEmail == item.infowindow){
+				var useIcon = userIcon;
+				var marker = new google.maps.Marker({
+	                 position: new google.maps.LatLng(item.lat, item.lng),
+	                 map: map,
+					icon: useIcon
+	             });
+
+			// NORMAL MARKERS 
+			} else {
+				var useIcon = circleIcon;
+				var marker = new google.maps.Marker({
+	                 position: new google.maps.LatLng(item.lat + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008), item.lng + ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.008)),
+	                 map: map,
+					icon: useIcon,
+					title: "TEST"
+	             });
+			}
+		});	
+		
+		
+		// VARS 
+		var map = new google.maps.Map(document.getElementById("map"), options);
+
+		var locations = <%= @hash.to_json.html_safe %>;
+		
+		var options = {
+	        zoom: 11,
+            center: new google.maps.LatLng(<%= current_user.location.latitude%>, <%= current_user.location.longitude%>),
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: false,
+			scrollwheel: false
+        };
+		var circleIcon = {
+		    path: 'M 0, 0 m -10, 0 a 10, 10 0 1, 0 20, 0 a 10, 10 0 1, 0 -20, 0',
+		    fillColor: '#666666',
+		    fillOpacity: 0.6,
+		    scale: 2.5,
+		    strokeColor: '#666666',
+		    strokeWeight: 2,
+		    strokeOpacity: 0.8
+		};
+
+		var userIcon = {
+		    path: 'M 0, 0 m -10, 0 a 10, 10 0 1, 0 20, 0 a 10, 10 0 1, 0 -20, 0',
+		    fillColor: '#cc0000',
+		    fillOpacity: 0.6,
+		    scale: 1,
+		    strokeColor: '#cc0000',
+		    strokeWeight: 2,
+		    strokeOpacity: 0.8
+		};
+
+		
+	});
+</script>
+
+<%= debug(@hash)%>
