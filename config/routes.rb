@@ -18,6 +18,11 @@ NannyShare::Application.routes.draw do
   get 'find_a_family', to: 'welcome#find_a_family'
   get 'terms', to: 'welcome#terms'
   get 'privacy', to: 'welcome#privacy'
+
+  # Manage Users
+  get 'manage_users', to: 'welcome#manage_users'
+  
+  
  
   # Example of regular route:1
   #   get 'products/:id' => 'catalog#view'

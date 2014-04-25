@@ -24,6 +24,37 @@
 
 .container.main-content{padding-bottom:40px;}
 
+.sidebar{
+	position:relative;
+}
+
+.sidebar-alert{
+	position:absolute;
+	top:20%;
+	left:-200px;
+	width:200px;
+	height:150px;
+	background:#ccc;
+	padding:20px;
+	border:1px solid red;
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+	
+}
+.sidebar-alert:after{
+	content:'';
+	position:absolute;
+	top:43%;
+	right:-10px;
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid #ccc;
+
+
+
 /** FIX for Bootstrap and Google Maps Info window styes problem **/
 img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
 max-width: none;

@@ -11,6 +11,28 @@ class WelcomeController < ApplicationController
   def terms
   end 
   
+  def manage_users
+    @users = User.all
+  end 
+  
+  def destroy_users
+    @user = User.find(params[:id])
+    #Destroy User
+    @user.destroy
+    #Destroy Users Children
+    @user.children.each do |c|
+      c.destroy
+    end 
+    #Destroy Users Location
+    @user.locations.each do |l|
+      l.destroy
+    end 
+    respond_to do |format|
+      format.html { redirect_to manage_users_path }
+      format.json { head :no_content }
+    end
+  end 
+  
   def find_a_family
      @users = User.all 
      

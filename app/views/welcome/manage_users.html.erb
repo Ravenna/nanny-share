@@ -1,0 +1,36 @@
+<h1>All Users</h1>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Children</th>
+	  <th>Location</th>
+	  <th>Destroy</th>
+    </tr>
+  </thead>
+
+  <tbody>
+	<% @users.each do || %>
+		<tr>
+			<td><%= u.first_name %></td>
+			<td><%= u.last_name %></td>
+			<td><%= u.email %></td>
+			<td><%= u.children_count%></td>
+			<td>
+				<% if u.location.present? %>
+					<%= u.location.address_one %> 
+					<%= u.location.address_two %>, 
+					<%= u.location.city %> 
+					<%= u.location.state %>, 
+					<%= u.location.zip %>
+				<% end %>
+				
+			</td>
+		</tr>
+	<% end %>
+  </tbody>
+</table>
