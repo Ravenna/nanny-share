@@ -5,6 +5,12 @@ class WelcomeController < ApplicationController
   def home
   end 
   
+  def privacy
+  end 
+  
+  def terms
+  end 
+  
   def find_a_family
      @users = User.all 
      
@@ -12,10 +18,6 @@ class WelcomeController < ApplicationController
         @close = Location.near([current_user.location.latitude, current_user.location.longitude], params[:distance])
         @close = @close.joins(user: :children).where('users.children_count <= ?', params[:number_of_children]) if params[:number_of_children].present?
         
-        
-        
-        # DON'T SHOW CURRENT USER
-        #@close = @close.where('user_id != ?', current_user)
       else user_signed_in? 
         @close = Location.near([current_user.location.latitude, current_user.location.longitude], 5)
       end  

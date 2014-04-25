@@ -22,6 +22,8 @@
 .btn-primary:visited{color:#fff !important;}
 .search-button{margin-top:25px;}
 
+.container.main-content{padding-bottom:40px;}
+
 /** FIX for Bootstrap and Google Maps Info window styes problem **/
 img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
 max-width: none;

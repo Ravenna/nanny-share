@@ -8,25 +8,31 @@
 <h3>Here is how it works.</h3>
 
 <div class="row">
-	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-		1. Create an Account
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		1. Create an Account, Add your Address, Add your Children
 	</div>
 	
-	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-		2. Search for Families Near You
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		2. Search for Families Near You on our interactive map
 	</div>
 	
-	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-		3. Connect with potential families.
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+		3. Connect with potential families and secure a great nanny share
 	</div>
 	
-	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-		4. Work with Seattle Nanny to find a Nanny
-	</div>
+	
 </div>
 
+<p>&nbsp;</p>
+
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><%= link_to "Get Started", new_user_registration_path, :class => "btn" %></div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Ready?  
+		<% if current_user %>
+			<%= link_to "Find a Family", find_a_family_path, :class => "btn btn-primary"  %>
+		<% else %>
+			<%= link_to "Get Started", new_user_registration_path, :class => "btn btn-primary" %>
+		<% end %>
+	</div>
 </div>
 
 

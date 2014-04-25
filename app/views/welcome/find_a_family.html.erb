@@ -1,16 +1,25 @@
 <div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<h1>Find a Family</h1>
+		<p>Search based on distance and the number of children a family has.  Once you have found a family that you would like to connect with, email them.  If there is a strong connection and a potential match, contact Seattle Nanny Network and we will work with you to place a shared nanny.</p>
+	</div>
+</div>	
+
+<hr>
+
+<div class="row">
 <%= form_tag find_a_family_path, :method => :get do %>
 	<div class="col-sm-4 col-md-4 col-lg-4">
   		<div class="form-group">
 			<label>Distance (miles):</label>
-		    <%= select_tag "distance", "<option>1</option><option>2</option><option>5</option><option>10</option><option>20</option>".html_safe, :class => "form-control"%>
+		    <%= select_tag "distance", options_for_select((1..10).step(1).collect {|s| ["#{s}", s]}, :selected => params[:distance]), :class => "form-control"%>
 		  </div>
 	</div>
   
 	<div class="col-sm-4 col-md-4 col-lg-4">
   		<div class="form-group">
-			<label>Number of Children:</label>
-		    <%= select_tag "number_of_children", options_for_select((1..5).step(1).collect {|s| ["#{s}", s]}), :class => "form-control", :prompt => "Please select"%>
+			<label>Max Number of Children:</label>
+		    <%= select_tag "number_of_children", options_for_select((1..5).step(1).collect {|s| ["#{s}", s]}, :selected => params[:number_of_children]), :class => "form-control", :prompt => "Please select"%>
 		  </div>
 	</div>
 
@@ -29,8 +38,10 @@
 
 <hr>
 
-<% if user_signed_in? && params[:distance].present? %>
-<p class="lead">Nearby</p>
+<p class="lead">Potential Families</p>
+<% if !params[:distance].present? %>
+<small>Within 5 miles.  For more precise control, use the search form above.</small>
+<% end %>
 
 
 <table class="table table-striped">
@@ -43,18 +54,18 @@
 		</tr>
 	</thead>
 	<tbody>
-	<% for location in @close %>
-		<tr>
-		<% unless location.user.email == current_user.email %>
-	  		<td><%= location.user.email %></td>
-			<td><%= location.user.start_date.strftime("%b %Y")%></td>
-			<td><%= location.user.children.count %></td>
-			<td><%= location.distance.round(2) %> miles</td>	
+		<% @close.each do |loc| %>
+			<tr>
+			<% if loc.user.email != current_user.email %>
+		  		<td><%= loc.user.email %></td>
+				<td><%= loc.user.start_date%></td>
+				<td><%= loc.user.children.count %></td>
+				<td><%= loc.distance.round(2) %> miles</td>	
+			<% end %>
+			</tr>
 		<% end %>
-		</tr>
-	<% end %>
-	</table>
-<% end %>
+	</tbody>
+</table>
 
 <script>
 	$(document).ready(function(){
@@ -79,7 +90,7 @@
 		};
 
 		var options = {
-	        zoom: 11,
+	        zoom: 10,
             center: new google.maps.LatLng(<%= current_user.location.latitude%>, <%= current_user.location.longitude%>),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             zoomControl: false,
@@ -134,4 +145,5 @@
 	});
 </script>
 
-<%= debug(@hash)%>
+
+
