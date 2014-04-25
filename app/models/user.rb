@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  validates :terms, :acceptance => {:accept => true}
   # Relationships
   has_one :location
   has_many :children
