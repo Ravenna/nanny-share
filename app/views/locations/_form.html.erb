@@ -29,7 +29,7 @@
 	
 	<div class="form-group">
 	    <%= f.label :state %><br>
-	    <%= f.select :state, us_states,{}, { :class => 'form-control'} %>
+	    <%= f.select(:state, options_for_select(us_states, :selected => "WA"),{},  {:class => 'form-control'}) %>
 	</div>
 	
 	<div class="form-group">

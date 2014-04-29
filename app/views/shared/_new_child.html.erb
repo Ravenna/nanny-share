@@ -14,7 +14,7 @@
 		
 			<div class="form-group">
 				<label for="address_one">Age</label>
-				<%= f.select :age,options_for_select((1..15).step(1).collect {|s| ["#{s}", s]}) ,:class => 'form-control' %>
+				<%= f.select :age, age_select ,:class => 'form-control' %>
 			</div>
 
 			<div class="form-group">

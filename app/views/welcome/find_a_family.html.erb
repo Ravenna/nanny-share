@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12">
 		<h1>Find a Family</h1>
-		<p>Search based on distance and the number of children a family has.  Once you have found a family that you would like to connect with, email them.  If there is a strong connection and a potential match, contact Seattle Nanny Network and we will work with you to place a shared nanny.</p>
+		<p>Search based on distance and the number of children in each family. Once you have found a family that you would like to connect with, email them. If there is a strong connection and a potential match, contact Seattle Nanny Network and we will work with you to place a shared nanny.</p>
 	</div>
 </div>	
 
@@ -93,8 +93,8 @@
 	        zoom: 10,
             center: new google.maps.LatLng(<%= current_user.location.latitude%>, <%= current_user.location.longitude%>),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            zoomControl: false,
-			scrollwheel: false
+            maxZoom: 14,
+			minZoom: 8
         };
         var map = new google.maps.Map(document.getElementById("map"), options);
 
