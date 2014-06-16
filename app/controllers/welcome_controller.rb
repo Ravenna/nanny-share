@@ -43,13 +43,11 @@ class WelcomeController < ApplicationController
       else user_signed_in? 
         @close = Location.near([current_user.location.latitude, current_user.location.longitude], 25)
       end  
-
-      if @close
       
       @hash = Gmaps4rails.build_markers(@close) do |location, marker|
         marker.lat location.latitude
         marker.lng location.longitude
-        #marker.infowindow location.user.email
+        # marker.infowindow location.user.email
       end
   end 
   
