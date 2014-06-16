@@ -49,7 +49,7 @@ class WelcomeController < ApplicationController
       @hash = Gmaps4rails.build_markers(@close) do |location, marker|
         marker.lat location.latitude
         marker.lng location.longitude
-        marker.infowindow location.user.email
+        #marker.infowindow location.user.email
       end
   end 
   
