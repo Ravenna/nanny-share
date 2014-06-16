@@ -40,7 +40,7 @@
 
 <p class="lead">Potential Families</p>
 <% if !params[:distance].present? %>
-<small>Within 5 miles.  For more precise control, use the search form above.</small>
+<small>Default is within 10 miles.  For more precise control, use the search form above.</small>
 <% end %>
 
 
@@ -58,7 +58,7 @@
 			<tr>
 			<% if loc.user.email != current_user.email %>
 		  		<td><%= loc.user.email %></td>
-				<td><%= loc.user.start_date%></td>
+				<td><%= loc.user.start_date.strftime("%b #{loc.user.start_date.day.ordinalize} %Y")%></td>
 				<td><%= loc.user.children.count %></td>
 				<td><%= loc.distance.round(2) %> miles</td>	
 			<% end %>

@@ -41,7 +41,7 @@ class WelcomeController < ApplicationController
         @close = @close.joins(user: :children).where('users.children_count <= ?', params[:number_of_children]) if params[:number_of_children].present?
         
       else user_signed_in? 
-        @close = Location.near([current_user.location.latitude, current_user.location.longitude], 5)
+        @close = Location.near([current_user.location.latitude, current_user.location.longitude], 10)
       end  
       
       @hash = Gmaps4rails.build_markers(@close) do |location, marker|
