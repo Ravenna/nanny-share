@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   has_many :children
   
   accepts_nested_attributes_for :location, :children
+
+  def has_location
+  	self.location.empty?
+  end 
          
          
 end

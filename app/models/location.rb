@@ -1,7 +1,7 @@
 class Location < ActiveRecord::Base
   
   # Relationship
-  belongs_to :user
+  belongs_to :user, :dependent => :destroy
   
   # GEOCODE
   geocoded_by :address

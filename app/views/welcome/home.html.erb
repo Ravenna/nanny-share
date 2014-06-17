@@ -24,14 +24,15 @@
 
 <p>&nbsp;</p>
 
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Ready?  
-		<% if current_user %>
-			<%= link_to "Find a Family", find_a_family_path, :class => "btn btn-primary"  %>
-		<% else %>
-			<%= link_to "Get Started", new_user_registration_path, :class => "btn btn-primary" %>
-		<% end %>
+<% if current_user && !current_user.location.nil? %>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Ready?  
+			<% if current_user %>
+				<%= link_to "Find a Family", find_a_family_path, :class => "btn btn-primary"  %>
+			<% else %>
+				<%= link_to "Get Started", new_user_registration_path, :class => "btn btn-primary" %>
+			<% end %>
+		</div>
 	</div>
-</div>
-
+<% end %>
 

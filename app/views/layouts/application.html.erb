@@ -51,7 +51,7 @@
 			
 				<nav id="main_menu">
 					<ul>
-						<% if user_signed_in? %>
+						<% if user_signed_in? && !current_user.location.nil? %>
 							<li><%= link_to 'Find a Family', find_a_family_path %></li>
 					  	<% end %>
 						<%= render 'users/shared/login_items' %>
