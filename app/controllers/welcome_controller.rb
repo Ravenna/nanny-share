@@ -44,7 +44,7 @@ class WelcomeController < ApplicationController
         @close = Location.near([current_user.location.latitude, current_user.location.longitude], 25)
       end  
       
-      unless current_user.location.nil
+      unless current_user.location.nil?
         @hash = Gmaps4rails.build_markers(@close) do |location, marker|
           marker.lat location.latitude
           marker.lng location.longitude
