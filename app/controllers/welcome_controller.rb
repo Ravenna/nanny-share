@@ -61,7 +61,7 @@ class WelcomeController < ApplicationController
 
 
       elsif user_signed_in?  && current_user.location.nil? # Current User with no location
-        redirect_to root_path, alert: 'You must add your address before searching for families' 
+          redirect_to root_path, alert: 'You must add your address before searching for families' 
 
       else # OK DO THIS
           redirect_to root_path, alert: 'You must login or create an account before searching for families' 
