@@ -63,6 +63,7 @@
 	<tbody>
 		<% @close.each do |loc| %>
 			<tr>
+				<% if loc.user %>
 
 					<% if loc.user.email != current_user.email %>
 				  		<td><%= loc.user.email %></td>
@@ -70,6 +71,9 @@
 						<td><%= loc.user.children.count %></td>
 						<td><%= loc.distance.round(2) %> miles</td>	
 					<% end %>
+				<% else 
+					logger.debug "Loc Failed: #{loc}"
+				 end %>
 			</tr>
 		<% end %>
 	</tbody>
