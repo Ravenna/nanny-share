@@ -37,24 +37,24 @@ class WelcomeController < ApplicationController
      @users = User.all 
      
       if user_signed_in? && params[:distance].present? #Current User and Distance Params
-        @close = Location.where("user_id is NOT NULL").near([current_user.location.latitude, current_user.location.longitude], params[:distance])
+        @close = Location.where("user_id IS NOT NULL").near([current_user.location.latitude, current_user.location.longitude], params[:distance])
         @close = @close.joins(user: :children).where('users.children_count <= ?', params[:number_of_children]) if params[:number_of_children].present?
 
         @hash = Gmaps4rails.build_markers(@close) do |location, marker|
             marker.lat location.latitude
             marker.lng location.longitude
-            if location.user.email
-              marker.infowindow location.user.email
-            end
+            marker.infowindow location.user.email
           end
         
       elsif user_signed_in?  && !current_user.location.nil? # Current User with a location but no distance params
-        @close = Location.where("user_id is NOT NULL").near([current_user.location.latitude, current_user.location.longitude], 25)
+        @close = Location.where("user_id IS NOT NULL").near([current_user.location.latitude, current_user.location.longitude], 25)
 
         @hash = Gmaps4rails.build_markers(@close) do |location, marker|
             marker.lat location.latitude
             marker.lng location.longitude
-            if location.user.email
+            if !location.user.email
+              logger.debug "Location failing: #{location.id}"
+            else
               marker.infowindow location.user.email
             end
           end
