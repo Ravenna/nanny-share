@@ -36,21 +36,31 @@ class WelcomeController < ApplicationController
   def find_a_family
      @users = User.all 
      
-      if user_signed_in? && params[:distance].present?
+      if user_signed_in? && params[:distance].present? #Current User and Distance Params
         @close = Location.near([current_user.location.latitude, current_user.location.longitude], params[:distance])
         @close = @close.joins(user: :children).where('users.children_count <= ?', params[:number_of_children]) if params[:number_of_children].present?
         
-      else user_signed_in? 
-        @close = Location.near([current_user.location.latitude, current_user.location.longitude], 25)
+      elsif user_signed_in?  && !current_user.location.nil? # Current User with a location but no distance params
+        @close = Location.where("user_id is NOT NULL").near([current_user.location.latitude, current_user.location.longitude], 25)
+
+
+
+      elsif user_signed_in?  && current_user.location.nil? # Current User with no location
+        redirect_to root_path, alert: 'You must add your address before searching for families' 
+
+      else # OK DO THIS
+          redirect_to root_path, alert: 'You must login or create an account before searching for families' 
       end  
       
-      unless current_user.location.nil?
-        @hash = Gmaps4rails.build_markers(@close) do |location, marker|
-          marker.lat location.latitude
-          marker.lng location.longitude
-          marker.infowindow location.user.email
+      if user_signed_in?
+        if !current_user.location.nil?
+          @hash = Gmaps4rails.build_markers(@close) do |location, marker|
+            marker.lat location.latitude
+            marker.lng location.longitude
+            marker.infowindow location.user.email
+          end
         end
-      end
+      end 
   end 
   
   # Never trust parameters from the scary internet, only allow the white list through.    
