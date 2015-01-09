@@ -52,7 +52,7 @@ class WelcomeController < ApplicationController
         @hash = Gmaps4rails.build_markers(@close) do |location, marker|
             marker.lat location.latitude
             marker.lng location.longitude
-            if !location.user.email
+            if !location.user
               logger.debug "Location failing: #{location.id}"
             else
               marker.infowindow location.user.email
