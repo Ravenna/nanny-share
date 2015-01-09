@@ -2,6 +2,14 @@ class Location < ActiveRecord::Base
   
   # Relationship
   belongs_to :user, :dependent => :destroy
+
+
+  #VALIDATIONS
+  validates_associated :user
+
+  validates :address_one, presence: true
+  validates :city, presence: true
+  validates :zip, presence: true
   
   # GEOCODE
   geocoded_by :address
