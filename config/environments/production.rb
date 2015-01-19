@@ -85,7 +85,7 @@ NannyShare::Application.configure do
     config.action_mailer.smtp_settings = {
      :address              => "smtp.gmail.com",
      :port                 => 587,
-     :domain               => 'seattlenanny.com',
+     :domain               => 'nannyshare.seattlenanny.com',
      :user_name            => 'admin@seattlenanny.com',
      :password             => 'admi0704',
      :authentication       => :plain,
