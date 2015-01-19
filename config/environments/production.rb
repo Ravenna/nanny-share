@@ -86,8 +86,8 @@ NannyShare::Application.configure do
      :address              => "smtp.gmail.com",
      :port                 => 587,
      :domain               => 'seattlenanny.com',
-     :user_name            => 'info@seattlenanny.com',
-     :password             => 'info0704',
+     :user_name            => 'admin@seattlenanny.com',
+     :password             => 'admi0704',
      :authentication       => :plain,
      :enable_starttls_auto => true  
   }
