@@ -1,42 +1,35 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :authenticate_user!
   
-  def update
-     @user = User.find(current_user.id)
+ 
 
-     successfully_updated = if needs_password?(@user, params)
-       @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
-     else
-       # remove the virtual current_password attribute
-       # update_without_password doesn't know how to ignore it
-       params[:user].delete(:current_password)
-       @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
-     end
+def update
+  # Get all params for :account_update
+  account_update_params = devise_parameter_sanitizer.sanitize(:account_update)
 
-     if successfully_updated
-       set_flash_message :notice, :updated
-       # Sign in the user bypassing validation in case his password changed
-       sign_in @user, :bypass => true
-       redirect_to after_update_path_for(@user)
-     else
-       render "edit"
-     end
-   end
-  
-  protected
-
-  def after_sign_up_path_for(resource)
-    new_user_location_path(:user_id => current_user)
+  # Allow user to update without using password.
+  if account_update_params[:password].blank?
+    account_update_params.delete("password")
+    account_update_params.delete("password_confirmation")
   end
-  
-  
-  private
 
-    # check if we need password to update user data
-    # ie if password or email was changed
-    # extend this as needed
-    def needs_password?(user, params)
-      user.email != params[:user][:email] ||
-        params[:user][:password].present?
-    end
+  # Set current_user
+  @user = User.find(current_user.id)
+   if @user.update_attributes(account_update_params)
+     set_flash_message :notice, :updated
+     sign_in @user, :bypass => true
+     redirect_to after_update_path_for(@user)
+   else
+     render "edit"
+   end
+end
+
+private
+
+
+ def configure_permitted_parameters()
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name, :last_name, :email, :password, :start_date) }
+  end
+
+
 end
