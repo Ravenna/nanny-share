@@ -80,12 +80,12 @@ NannyShare::Application.configure do
 
 
   # ACTION MAILER
-  config.action_mailer.default_url_options = { :host => 'seattlenanny.com' }
+  config.action_mailer.default_url_options = { :host => 'nannyshare.seattlenanny.com' }
 
     config.action_mailer.smtp_settings = {
      :address              => "smtp.gmail.com",
      :port                 => 587,
-     :domain               => 'nannyshare.seattlenanny.com',
+     :domain               => 'seattlenanny.com',
      :user_name            => 'admin@seattlenanny.com',
      :password             => 'admi0704',
      :authentication       => :plain,
