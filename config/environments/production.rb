@@ -81,4 +81,14 @@ NannyShare::Application.configure do
 
   # ACTION MAILER
   config.action_mailer.default_url_options = { :host => 'seattlenanny.com' }
+
+    config.action_mailer.smtp_settings = {
+     :address              => "smtp.gmail.com",
+     :port                 => 587,
+     :domain               => 'seattlenanny.com',
+     :user_name            => 'info@seattlenanny.com',
+     :password             => 'info0704',
+     :authentication       => :plain,
+     :enable_starttls_auto => true  
+  }
 end
