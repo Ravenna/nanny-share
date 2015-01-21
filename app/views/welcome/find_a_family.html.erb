@@ -67,7 +67,9 @@
 
 					<% if loc.user.email != current_user.email %>
 				  		<td><%= loc.user.email %></td>
+				  		<% if loc.user.start_date %>
 						<td><%= loc.user.start_date.strftime("%b #{loc.user.start_date.day.ordinalize} %Y")%></td>
+						<% end %>
 						<td><%= loc.user.children.count %></td>
 						<td><%= loc.distance.round(2) %> miles</td>	
 					<% end %>

@@ -37,7 +37,7 @@ NannyShare::Application.configure do
      :domain               => 'seattlenanny.com',
      :user_name            => 'admin@seattlenanny.com',
      :password             => 'admi0704',
-     :authentication       => :plain,
+     :authentication       => :plain
      
-  
+    }
 end
