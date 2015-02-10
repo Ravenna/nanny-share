@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
   # Relationships
   has_one :location
   has_many :children
+
+  #Validations
+  validates :email, presence: true
+  validates :start_date, presence: true
   
   accepts_nested_attributes_for :location, :children
 
