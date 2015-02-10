@@ -89,6 +89,7 @@ NannyShare::Application.configure do
      :user_name            => 'admin@seattlenanny.com',
      :password             => 'admi0705',
      :authentication       => :plain,
-     :enable_starttls_auto => true  
+     :enable_starttls_auto => true,
+     :openssl_verify_mode => 'none'  
   }
 end
