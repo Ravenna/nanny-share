@@ -38,7 +38,7 @@ NannyShare::Application.configure do
      :port                 => '587',
      :domain               => 'seattlenanny.com',
      :user_name            => 'admin@seattlenanny.com',
-     :password             => 'admi2590',
+     :password             => 'Admi2590',
      :authentication       => :login, 
      :enable_starttls_auto => true
      
