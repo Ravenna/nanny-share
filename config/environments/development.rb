@@ -26,6 +26,8 @@ NannyShare::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+
   
   
   # ACTION MAILER
@@ -33,7 +35,7 @@ NannyShare::Application.configure do
 
     config.action_mailer.smtp_settings = {
      :address              => "smtp.office365.com",
-     :port                 => 25,
+     :port                 => '587',
      :domain               => 'seattlenanny.com',
      :user_name            => 'admin@seattlenanny.com',
      :password             => 'Admi2590',
