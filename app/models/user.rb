@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   #Validations
   validates :email, presence: true
-  validates :start_date, presence: true
+  #validates :start_date, presence: true
   
   accepts_nested_attributes_for :location, :children
 
