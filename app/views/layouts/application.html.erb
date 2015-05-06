@@ -3,13 +3,11 @@
 <head>
   <title>Nanny Share Portal</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= stylesheet_link_tag "http://seattlenanny.com/assets/css/header-1.css", media: "all" %>
-  <%= stylesheet_link_tag "http://seattlenanny.com/assets/css/socialicoregular.css", media: "all"%>
-  <%= stylesheet_link_tag "http://seattlenanny.com/assets/css/style.css", media: "all"%>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 
 	<script type="text/javascript"
@@ -29,41 +27,53 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 </head>
 <body>
-	<section class="container preheader"> 
-		
-		
-		<div class="phone"><a href="tel:4258039511" class="tele">425.803.9511</a> - <a href="tel:2064671999" class="tele">206.467.1999</a></div>
-		<ul class="social">
-			<li><a class="socicon small facebook" href="https://www.facebook.com/pages/Seattle-Nanny-Network-Inc/169143906432692" data-placement="bottom" target="_blank" data-original-title="Follow us on Facebook"></a></li>
-			<li><a class="socicon small twitterbird" href="https://twitter.com/SeattleNannyNet" data-placement="bottom" target="_blank" data-original-title="Follow us on Twitter"></a></li>
-			<li><a class="socicon small linkedin" href="http://www.linkedin.com/company/seattle-nanny-network-inc-?trk=top_nav_home" data-placement="bottom" target="_blank" data-original-title="Follow us on LinkedIn"></a></li>
-			
-		</ul>
-	</section>
 	
-	<header class="header  clearfix"> 
-		<div class="container"> 
+	<header class="header  clearfix">
 
-			<!-- begin #logo -->
-			<div id="logo"> <a href="<%= root_path %>"><img src="http://seattlenanny.com/img/seattle-nanny-logo-new.png" alt="Seattle Nanny" class="img-responsive"></a> </div>
-			<!-- end #logo --> 
-			
-			
-				<nav id="main_menu">
-					<ul>
-						<% if user_signed_in? && !current_user.location.nil? %>
-							<li><%= link_to 'Find a Family', find_a_family_path %></li>
-					  	<% end %>
-						<%= render 'users/shared/login_items' %>
-					  	<%= render 'users/shared/registration_items' %>
-					  
-					</ul>
-				</nav>
-			
-			
-			
 
-		</div><!-- /.container--> 
+		<div id="header_meta" class="">
+		
+			      <div class="container">
+			      <ul class="noLightbox social_bookmarks icon_count_3">
+			      	<li class="social_bookmarks_twitter av-social-link-twitter social_icon_1">
+			      		<a target="_blank" href="https://twitter.com/SeattleNannyNet" title="Twitter"><span class="fa fa-twitter"></span></a>
+			      	</li>
+			      	<li class="social_bookmarks_facebook av-social-link-facebook social_icon_2">
+			      		<a target="_blank" href="https://www.facebook.com/pages/Seattle-Nanny-Network-Inc/169143906432692" title="Facebook">
+			      			<span class="fa fa-facebook"></span>
+			      		</a>
+			      	</li>
+			      	<li class="social_bookmarks_linkedin av-social-link-linkedin social_icon_3"><a target="_blank" href="http://www.linkedin.com/company/seattle-nanny-network-inc-?trk=top_nav_home" aria-hidden="true" data-av_icon="" data-av_iconfont="entypo-fontello" title="Linkedin"><span class="fa fa-linkedin"></a></li>
+			      	</ul>
+			      	<div class="phone-info"><span>425.803.9511 or 206.467.1999</span>	</div>
+			      	</div>
+		</div>
+
+		<div class="header_main"> 
+			<div class="container clearfix"> 
+
+				<!-- begin #logo -->
+				<div id="logo" class="pull-left"> <a href="<%= root_path %>"><%= image_tag("seattlenanny.png", alt: "Seattle Nanny", class:  "img-responsive") %></a> </div>
+				<!-- end #logo --> 
+				
+				
+					<nav id="main_menu" class="pull-right">
+						<ul>
+							<% if user_signed_in? && !current_user.location.nil? %>
+								<li><%= link_to 'Find a Family', find_a_family_path %></li>
+						  	<% end %>
+							<%= render 'users/shared/login_items' %>
+						  	<%= render 'users/shared/registration_items' %>
+						  	<li><a href="http://seattlenanny.com" title="Seattle Nanny">Back to Seattle Nanny</a></li>
+						  
+						</ul>
+					</nav>
+				
+				
+				
+
+			</div><!-- /.container--> 
+		</div>
 	</header>	
 	
 	
