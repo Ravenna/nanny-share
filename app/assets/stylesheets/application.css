@@ -12,6 +12,9 @@
  *= require_tree .
  */
 
+a{
+	color:#576674 ;
+}
 
 .btn-primary{
 	background-color:#4c5966 !important;
@@ -22,7 +25,10 @@
 .btn-primary:visited{color:#fff !important;}
 .search-button{margin-top:25px;}
 
-.container.main-content{padding-bottom:40px;}
+.container.main-content{
+	padding-bottom:40px;
+	min-height:500px;
+}
 
 .sidebar{
 	position:relative;
@@ -150,6 +156,38 @@ header{
   display: block;
   text-decoration: none;
   padding: 0 13px;
+}
+
+footer{
+	background: #4c5966;
+	color: #fff;
+}
+footer a{
+	color: #fff;
+}
+footer > .container{
+	padding:20px 15px;
+}
+.footerCredits{
+	background-color: #576674;
+	color: #fff;
+	line-height: 50px;
+	font-size: 11px;
+	height: 50px;
+}
+footer ul.social{
+	padding-left: 0px;
+}
+footer ul.social li{
+	list-style-type: none;
+	padding-right: 10px;
+	display: inline-block;
+}
+footer ul.social li a, footer ul.social li a:visited{
+	color: #fff;
+}
+footer ul.social li a:hover{
+	color: #ccc;
 }
 
 
